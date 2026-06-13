@@ -1,0 +1,18 @@
+[Unit]
+Description=TN Holidays & Alerts Telegram Automation Service Core
+After=network.target mariadb.service
+Requires=mariadb.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/tn_holidays_bot
+EnvironmentFile=/opt/tn_holidays_bot/.env
+ExecStart=/opt/tn_holidays_bot/venv/bin/python -m app.main
+Restart=always
+RestartSec=10s
+StandardOutput=append:/var/log/tn_holidays_out.log
+StandardError=append:/var/log/tn_holidays_err.log
+
+[Install]
+WantedBy=multi-user.target
